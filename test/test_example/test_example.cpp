@@ -1,5 +1,6 @@
 #include <Arduino.h>
 #include "unity.h"
+#include <project_config.h>
 
 void setUp(void) {
     // Procedure di setup
@@ -11,6 +12,12 @@ void tearDown(void) {
 
 void test_function(void) {
   TEST_ASSERT_TRUE_MESSAGE(1 == 1, "Fail message");
+}
+
+void test_BUTTON_GPIO(void){
+  pinMode(BUTTON, INPUT);
+  int buttonState = digitalRead(BUTTON);
+  TEST_ASSERT_TRUE_MESSAGE(buttonState == HIGH, "BUTTON was LOW, expected HIGH");
 }
 
 void test_function_fails(void) {
@@ -25,6 +32,7 @@ void setup() {
   delay(5000);
   UNITY_BEGIN();
   RUN_TEST(test_function);
+  RUN_TEST(test_BUTTON_GPIO);
   // RUN_TEST(test_function_fails); // Uncomment to see a failing test
   // RUN_TEST(test_equality);       // Uncomment to see a failing test
   UNITY_END();
